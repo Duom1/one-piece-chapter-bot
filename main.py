@@ -1,8 +1,9 @@
-import requests, os
+import requests, os, logging
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 def main():
+    logging.basicConfig(filename='main.py.log', encoding='utf-8', level=logging.DEBUG)
     def store_number(number: int):
         with open("chapter.txt", "w") as file:
             file.write(str(number))
@@ -13,12 +14,12 @@ def main():
             number = file.read()
         return int(number)
 
-    print("getting content")
+    logging.info("getting content")
     url = "https://mangareader.to/one-piece-3"
     response = requests.get(url)
     html_content = response.content
 
-    print("parsing html")
+    logging.info("parsing html")
     soup = BeautifulSoup(html_content, "html.parser")
     element_amt = 10
     count = 0
@@ -37,14 +38,14 @@ def main():
         item = i[8:]
         chapter_numbers.append(int(item[:4]))
 
-    print("sending webhook (if needed)")
+    logging.info("sending webhook (if needed)")
     newest_chapter = max(chapter_numbers)
     if newest_chapter > read_number():
         store_number(newest_chapter)
         load_dotenv()
         webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
         if webhook_url is None:
-            print("Webhook URL not found in environment variables.")
+            logging.info("Webhook URL not found in environment variables.")
         else:
             content = f'@everyone NEW ONEPICE CHAPTER "{{}}" IS OUT'.format(target_content[0][8:])
             message_data = { 'content': content }

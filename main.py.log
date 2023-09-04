@@ -1,0 +1,5 @@
+INFO:root:getting content
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): mangareader.to:443
+DEBUG:urllib3.connectionpool:https://mangareader.to:443 "GET /one-piece-3 HTTP/1.1" 200 None
+INFO:root:parsing html
+INFO:root:sending webhook (if needed)
