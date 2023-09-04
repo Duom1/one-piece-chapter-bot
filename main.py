@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 def main():
-    logging.basicConfig(filename='main.py.log', encoding='utf-8', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',
+                        filename='main.py.log', encoding='utf-8', level=logging.DEBUG)
+
     def store_number(number: int):
         with open("chapter.txt", "w") as file:
             file.write(str(number))
